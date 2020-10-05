@@ -13,7 +13,7 @@ using ModelLib.Model;
 
 namespace RESTItemService.Controllers
 {
-    [Route("api/localItems")]
+    [Route("api/items")]
     [ApiController]
     public class ItemsController : ControllerBase
     {

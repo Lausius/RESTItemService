@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/localItems",
+      "launchUrl": "api/items",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,8 +20,8 @@
     "RESTItemService": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/localItems",
-      "applicationUrl": "https://restfulitemservice.azurewebsites.net/",
+      "launchUrl": "api/items",
+      "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

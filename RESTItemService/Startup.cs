@@ -54,6 +54,13 @@ namespace RESTItemService
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin", builder => builder.AllowAnyOrigin());
+                options.AddPolicy("AllowMyLocalOrigin", builder => builder.WithOrigins("http://localhost:5000"));
+                options.AddPolicy("AllowGetPost", builder => builder.AllowAnyOrigin().WithMethods("GET", "POST"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +87,8 @@ namespace RESTItemService
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCors("AllowAnyOrigin");
         }
     }
 }
