@@ -14,16 +14,31 @@ namespace ConsumeRest
 
         public async void Start()
         {
-            var list = await GetAllItemsAsync();
-            foreach (var item in list)
-            {
-                Console.WriteLine(item);
-            }
+            //var list = await GetAllItemsAsync();
+            //foreach (var item in list)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            Console.WriteLine(string.Join("\n", GetAllItemsAsync().Result));
 
             Console.WriteLine("Enter ID:");
             int id;
             id = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(await GetItemById(id));
+
+            Console.WriteLine("Updating item:");
+            await UpdateItem(id);
+            Console.WriteLine(await GetItemById(id));
+
+            Console.WriteLine("Adding item:");
+            await AddItem();
+            Console.WriteLine(await GetItemById(6));
+
+            Console.WriteLine("Deleting new item:");
+            await DeleteItem(6);
+            Console.WriteLine(string.Join("\n", GetAllItemsAsync().Result));
+
+
         }
 
         public async Task<IList<Item>> GetAllItemsAsync()
@@ -46,38 +61,37 @@ namespace ConsumeRest
             }
         }
 
-        public async Task<Item> UpdateItem(string id)
+        public async Task UpdateItem(int id)
         {
             using (HttpClient client = new HttpClient())
             {
-                Item newItem = new Item("kanyle", "heroin", 100);
-                string jsonStr = JsonConvert.SerializeObject(newItem);
+                Item item = await GetItemById(id);
+                item.Name = "ole";
+                item.Quality = "fader";
+                item.Quantity = 100;
+                string jsonStr = JsonConvert.SerializeObject(item);
                 StringContent stringContent = new StringContent(jsonStr, Encoding.UTF8, "application/json");
                 await client.PutAsync($"{URI}/{id}", stringContent);
-                return newItem;
 
             }
         }
 
-        public async Task<Item> DeleteItem(string id)
+        public async Task DeleteItem(int id)
         {
             using (HttpClient client = new HttpClient())
             {
-                string content = await client.GetStringAsync($"{URI}/{id}");
                 await client.DeleteAsync($"{URI}/{id}");
-                return JsonConvert.DeserializeObject<Item>(content);
             }
         }
 
-        public async Task<Item> AddItem()
+        public async Task AddItem()
         {
             using (HttpClient client = new HttpClient())
             {
-                Item newItem = new Item("ny ting", "lort", 32);
+                Item newItem = new Item("nyere ting", "oi", 499);
                 string jsonStr = JsonConvert.SerializeObject(newItem);
                 StringContent stringContent = new StringContent(jsonStr, Encoding.UTF8, "application/json");
                 await client.PostAsync(URI, stringContent);
-                return newItem;
             }
         }
     }

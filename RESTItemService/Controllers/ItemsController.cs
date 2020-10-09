@@ -58,7 +58,7 @@ namespace RESTItemService.Controllers
         [HttpPost]
         public void Post([FromBody] Item value)
         {
-            value.Id = Item.counter;
+            value.Id = Item.counter++;
             items.Add(value);
         }
 
