@@ -6,13 +6,15 @@ namespace ModelLib.Model
 {
     public class Item
     {
+        public static int counter = 1;
+
         public Item()
         {
 
         }
-        public Item(int id, string name, string quality, double quantity)
+        public Item(string name, string quality, double quantity)
         {
-            Id = id;
+            Id = counter++;
             Name = name;
             Quality = quality;
             Quantity = quantity;

@@ -17,13 +17,13 @@ namespace RESTItemService.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        public List<Item> items = new List<Item>()
+        public static List<Item> items = new List<Item>()
             {
-                new Item(1, "Beer", "Not Good", 10),
-                new Item(2, "Bread", "Medium", 20),
-                new Item(3, "Cucumber", "Bad", 30),
-                new Item(4, "Carrot", "Low", 40),
-                new Item(5, "Beef", "Good", 50)
+                new Item("Beer", "Not Good", 10),
+                new Item("Bread", "Medium", 20),
+                new Item("Cucumber", "Bad", 30),
+                new Item("Carrot", "Low", 40),
+                new Item("Beef", "Good", 50)
             };
 
         // GET: api/<ItemsController>
@@ -58,6 +58,7 @@ namespace RESTItemService.Controllers
         [HttpPost]
         public void Post([FromBody] Item value)
         {
+            value.Id = Item.counter;
             items.Add(value);
         }
 
@@ -74,7 +75,6 @@ namespace RESTItemService.Controllers
             Item item = Get(id);
             if (item != null)
             {
-                item.Id = value.Id;
                 item.Name = value.Name;
                 item.Quality = value.Quality;
                 item.Quantity = value.Quantity;

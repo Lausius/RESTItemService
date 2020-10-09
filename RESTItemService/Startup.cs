@@ -59,7 +59,7 @@ namespace RESTItemService
             {
                 options.AddPolicy("AllowAnyOrigin", builder => builder.AllowAnyOrigin());
                 options.AddPolicy("AllowMyLocalOrigin", builder => builder.WithOrigins("http://localhost:5000"));
-                options.AddPolicy("AllowGetPost", builder => builder.AllowAnyOrigin().WithMethods("GET", "POST"));
+                options.AddPolicy("AllowGetPost", builder => builder.AllowAnyOrigin().WithMethods("GET", "POST", "OPTIONS"));
             });
         }
 
@@ -81,6 +81,7 @@ namespace RESTItemService
             });
 
             app.UseRouting();
+            app.UseCors("AllowMyLocalOrigin");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -88,7 +89,6 @@ namespace RESTItemService
                 endpoints.MapControllers();
             });
 
-            app.UseCors("AllowAnyOrigin");
         }
     }
 }

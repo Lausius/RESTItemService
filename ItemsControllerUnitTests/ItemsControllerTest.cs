@@ -25,7 +25,6 @@ namespace ItemsControllerUnitTests
             //mockItems.Add(new Item { Id = 3, Name = "Demo3", Quality = "ugly", Quantity = 16.99 });
             //mockItems.Add(new Item { Id = 4, Name = "Demo4", Quality = "low", Quantity = 11.00 });
             service = new ItemCatalogService();
-            controller = new ItemsController(service);
             mockItems = (List<Item>)service.GetAllItems();
         }
 
@@ -47,7 +46,7 @@ namespace ItemsControllerUnitTests
         [TestMethod]
         public void PostTest()
         {
-            Item newItem = new Item(5, "fisk", "Shite", 200);
+            Item newItem = new Item("fisk", "Shite", 200);
             mockItems.Add(newItem);
 
             controller.Post(newItem);
@@ -68,7 +67,7 @@ namespace ItemsControllerUnitTests
         [TestMethod]
         public void PutTest()
         {
-            Item updatedValues = new Item(10, "fisk", "not good", 400);
+            Item updatedValues = new Item("fisk", "not good", 400);
             mockItems[0] = updatedValues;
 
             controller.Put(1, updatedValues);
